@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="alert alert-success mt-2" *ngIf="IsRegistered">
+        You have registered <strong>Successfully</strong>. Please add your comments now.
+    </div>
+    <form class="form-horizontal mt-3" [formGroup]="registerForm" id="registerForm" name="registerForm" role="form"
+        (ngSubmit)="onSubmit()">
+        <div class="form-group mt-3 mx-3">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="name" id="name" formControlName="fname"
+                    placeholder="Enter your Name"
+                    [ngClass]="{ 'mandatory-field' : (registerFormControl.fname.touched || submitted) && registerFormControl.fname.errors?.required }">
+                <span class="text-danger font-small"
+                    *ngIf="(registerFormControl.fname.touched || submitted) && registerFormControl.fname.errors?.required">
+                    Your Name is required.
+                </span>
+            </div>
+        </div>
+        <div class="form-group mt-3 mx-3">
+            <label for="nickName" class="col-sm-2 control-label">Nick name</label>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" name="nickName" formControlName="nname" id="nickName"
+                    placeholder="Enter your nickName"
+                    [ngClass]="{ 'mandatory-field' : (registerFormControl.nname.touched || submitted) && registerFormControl.nname.errors?.required }">
+                <span class="text-danger font-small"
+                    *ngIf="(registerFormControl.nname.touched || submitted) && registerFormControl.nname.errors?.required">
+                    Nick Name also required.
+                </span>
+            </div>
+        </div>
+        <div class="form-group mt-3 mx-3">
+            <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-12">
+                <input type="email" class="form-control" name="email" id="email" formControlName="email"
+                    placeholder="email@email.com"
+                    [ngClass]="{ 'mandatory-field' : ((registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required) || (registerFormControl.email.touched && registerFormControl.email.errors?.email)}">
+                <span class="text-danger  font-small"
+                    *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
+                    Email is required
+                </span>
+                <span class="text-danger  font-small"
+                    *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.email">
+                    Enter must be a valid email address
+                </span>
+            </div>
+        </div>
+        <div class="form-group mt-3 mx-3" style="text-align: center;">
+            <div class="col-sm-offset-2 col-sm-12">
+                <button class="btn btn-warning btn-circle text-uppercase colorwhite" type="submit" id="submit"
+                    [hidden]="IsLocalStoragehasValue">Login to
+                    Add comments</button>
+                <button class="btn btn-warning btn-circle text-uppercase colorwhite" [hidden]="!IsLocalStoragehasValue"
+                    disabled>Your are logged in</button>
+            </div>
+        </div>
+    </form>
+</div>

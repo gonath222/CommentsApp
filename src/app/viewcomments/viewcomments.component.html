@@ -1,0 +1,68 @@
+<div class="alert alert-success mt-2 mx-2" *ngIf="isPosted">
+    Your comments posted <strong>Successfully</strong>.
+  </div>
+  <div class="alert alert-danger mt-2 mx-2" *ngIf="isError">
+    Login in accounts tab and post your comments.
+  </div>
+  <ul class="media-list">
+      <li class="media" *ngFor="let com of comments; let i = index">
+        <div class="media-body">
+          <div class="well well-lg">
+              <h4 class="media-heading text-uppercase reviews">{{ com.NickName}} </h4>
+              <ul class="media-date text-uppercase reviews list-inline">
+                <li class="dd">Posted on: {{com.Date}}</li>
+              </ul>
+              <p class="media-comment">
+                {{ com.Comments }}
+              </p>
+              <button class="btn btn-info btn-circle text-uppercase mx-2 colorwhite" (click)="ReplyClicked(com, i)" id="reply">
+                <span class="glyphicon glyphicon-share-alt"></span>Add Reply
+              </button>
+              <button class="btn btn-danger btn-circle text-uppercase mx-2 colorwhite" (click)="DeleteClicked(com, i)" id="delete">
+                <span class="glyphicon glyphicon-share-alt"></span>Delete
+              </button>
+              <button class="btn btn-warning btn-circle text-uppercase colorwhite" (click)="ShowComments(com, i)" data-toggle="collapse">
+                <span class="glyphicon glyphicon-comment" *ngIf="!isReplyinProgress[i]"></span><span *ngIf="!isReplyinProgress[i]"> View {{GetCommentsCount(com)}} comments</span>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="isReplyinProgress[i]"></span><span *ngIf="isReplyinProgress[i]"> Loading...</span>
+              </button>
+          </div>              
+        </div>
+        <div class="collapse" id="ShowComments" [ngClass]="{'show': isShowComments[i]}">
+            <ul class="media-list">
+                <li class="media media-replied" *ngFor="let reply of replies">
+                    <div class="media-body">
+                      <div class="well well-lg">
+                          <h4 class="media-heading text-uppercase reviews"><span class="glyphicon glyphicon-share-alt"></span>{{reply.NickName}}</h4>
+                          <ul class="media-date text-uppercase reviews list-inline">
+                            <li class="dd">Replied on: {{reply.Date}}</li>
+                          </ul>
+                          <p class="media-comment">
+                            {{reply.Comments}}
+                          </p>
+                      </div>              
+                    </div>
+                </li>
+            </ul>  
+        </div>
+  
+        <div class="collapse" id="replyOne" [ngClass]="{'show': isReply[i]}">
+          <ul class="media-list">
+              <li class="media media-replied">
+                  <div class="media-body">
+                    <div class="well well-lg">
+                      <div class="col-sm-12">
+                        <textarea class="form-control" name="addComment" id="addComment" rows="5" [(ngModel)]="replycomments" placeholder="Enter your reply here"></textarea>
+                      </div>
+                      <div class="col-sm-offset-2 col-sm-12 mt-3" style="text-align: right;">                    
+                        <button class="btn btn-warning btn-circle text-uppercase colorwhite" type="submit" (click)="SubmitClicked(com, i)" id="submitComment">
+                          <span class="glyphicon glyphicon-send" *ngIf="!isSubmitProgress[i]"></span> <span *ngIf="!isSubmitProgress[i]">Submit comment</span>
+                          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="isSubmitProgress[i]"></span><span *ngIf="isSubmitProgress[i]">Submitting</span>
+                        </button>
+                    </div>
+                    </div>              
+                  </div>
+              </li>
+          </ul>  
+      </div>
+      </li>          
+    </ul> 

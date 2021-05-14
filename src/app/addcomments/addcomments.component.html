@@ -1,0 +1,38 @@
+<div class='container'>
+    <div class="alert alert-success mt-2 mx-2" *ngIf="isPosted">
+        Your comments posted <strong>Successfully</strong>.
+      </div>
+      <div class="alert alert-danger mt-2 mx-2" *ngIf="isError">
+        Login in accounts tab and post your comments.
+      </div>
+<form class="form-horizontal" id="commentForm" role="form" [formGroup]="commentsForm" (ngSubmit)="onSubmit()"> 
+    <div class="form-group mx-3 mt-3">
+        <label for="email" class="col-sm-2 control-label">Comment</label>
+        <div class="col-sm-12">
+          <textarea class="form-control" name="addComment" id="addComment" rows="5" formControlName="commentstext"
+          [ngClass]="{ 'mandatory-field' : (registerFormControl.commentstext.touched || submitted) && registerFormControl.commentstext.errors?.required }"></textarea>
+          <span class="text-danger font-small"
+          *ngIf="(registerFormControl.commentstext.touched || submitted) && registerFormControl.commentstext.errors?.required">
+          Please enter your comments
+      </span>
+        </div>
+    </div>
+    <div class="form-group mx-3 mt-3">
+        <label for="uploadMedia" class="col-sm-2 control-label">Upload media:(Img and Png)</label>
+        <div class="col-sm-12">                    
+            <div class="input-group">
+              <div class="input-group-addon">http://</div>
+              <input type="text" class="form-control" name="uploadMedia" id="uploadMedia" formControlName="commentimage">
+            </div>
+        </div>
+    </div>
+    <div class="form-group mx-3 mt-3" style="text-align: center;">
+        <div class="col-sm-offset-2 col-sm-12">                    
+            <button class="btn btn-warning btn-circle text-uppercase colorwhite" type="submit" id="submitComment">
+                <span class="glyphicon glyphicon-send" *ngIf="!isSubmitProgress"></span> <span *ngIf="!isSubmitProgress">Add comment</span>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="isSubmitProgress"></span><span *ngIf="isSubmitProgress"> Adding...</span>
+            </button>
+        </div>
+    </div>            
+</form>
+</div> 
