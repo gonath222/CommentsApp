@@ -34,7 +34,6 @@ describe('HeaderComponent', () => {
 
 
     it('should render title', () => {
-      debugger;
       const fixture = TestBed.createComponent(HeaderComponent);
       let loginservice = fixture.debugElement.injector.get(LoginService);
       //let router = fixture.debugElement.injector.get(Router);
